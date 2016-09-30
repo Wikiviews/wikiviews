@@ -13,7 +13,7 @@ services:
     depends_on:
       - es
   frontend:
-    image: "wikiviews/wikiviews-frontend:1.0.0-beta2"
+    image: "wikiviews/wikiviews-frontend:1.0.0-beta3"
   reverse_proxy:
     image: "wikiviews/wikiviews-reverse-proxy:1.0.0-beta"
     environment:
