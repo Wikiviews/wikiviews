@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+  es:
+    image: "wikiviews/wikiviews-elasticsearch"
+    volumes_from:
+      - container:esdata
+  api_server:
+    image: "wikiviews/wikiviews-api-server"
+    environment:
+      - "HTTP=true"
+      - "ES_ADDR=es"
+    depends_on:
+      - es
+  frontend:
+    image: "wikiviews/wikiviews-frontend"
+  reverse_proxy:
+    image: "wikiviews/wikiviews-reverse-proxy"
+    environment:
+      - "FRONTEND_ADDR=frontend"
+      - "FRONTEND_PORT=80"
+      - "API_ADDR=api_server"
+      - "API_PORT=80"
+    depends_on:
+      - frontend
+      - api_server
+    ports:
+      - "80:80"
+
